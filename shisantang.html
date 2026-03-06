@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拾叁唐酒吧·狂欢邀请函</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "PingFang SC", Arial;
+            background: #0b0b0b;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at top, #2b0f3a, #000);
+        }
+
+        .card {
+            width: 90%;
+            max-width: 600px;
+            background: #111;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(255, 0, 120, 0.4);
+            text-align: center;
+            animation: fadeIn 1s;
+        }
+
+        h1 {
+            color: #ff4fa3;
+            text-shadow: 0 0 10px #ff4fa3;
+        }
+
+        p {
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        .highlight {
+            color: #ffcf5c;
+        }
+
+        button {
+            padding: 14px 30px;
+            margin: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .accept {
+            background: #ff4fa3;
+            color: white;
+            box-shadow: 0 0 10px #ff4fa3;
+        }
+
+        .accept:hover {
+            transform: scale(1.1);
+        }
+
+        .reject {
+            background: #333;
+            color: #aaa;
+        }
+
+        .list {
+            margin-top: 25px;
+            text-align: left;
+            max-height: 200px;
+            overflow: auto;
+        }
+
+        input {
+            padding: 12px;
+            width: 80%;
+            border-radius: 8px;
+            border: none;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .count {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ffcf5c;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="card">
+
+        <h1>🎉 拾叁唐酒吧·狂欢邀请函 🎉</h1>
+
+        <p>
+            致 <span class="highlight">最会玩的你</span>：
+        </p>
+
+        <p>
+            江湖传闻——<br>
+            有人在此处把酒言欢，笑谈人间；<br>
+            有人在此处一展骰艺，称霸酒桌；<br>
+            还有人，仅仅路过一瞥，便被拽进这场不散的狂欢……
+        </p>
+
+        <p>
+            这一次，我想邀你一起，入局。
+        </p>
+
+        <p>
+            📍 地点：拾叁唐酒吧<br>
+            📅 时间：3月7日 周六晚上 8:00 - 深夜
+        </p>
+
+        <p>
+            🎁 为你准备的不止是酒：<br><br>
+
+            🎲 大话骰/PK局——来战，输了自罚三杯<br>
+            🎯 飞镖/游戏机对决——看谁是今晚的MVP<br>
+            🃏 小姐牌/真心话大冒险——有些秘密，只适合酒后说<br>
+            🎶 还有好音乐、好气氛，以及好久不见的你
+        </p>
+
+        <p>
+            ✨ Dress Code：<br>
+            怎么舒服怎么来，但如果你穿得够帅/够美，全场目光归你。
+        </p>
+
+        <p>
+            🍻 暗号：<br>
+            到吧台说 “来找组织”，有惊喜小shot相送。
+        </p>
+
+        <p>
+            等你来，把这夜晚喝成故事。
+        </p>
+
+        <p>
+            —— 你的酒友 🤙<br>
+            ok！🦋
+        </p>
+
+        <input id="name" placeholder="输入你的名字">
+
+        <br>
+
+        <button class="accept" onclick="accept()">🍻 接受邀请</button>
+        <button class="reject">😏 再考虑</button>
+
+        <div class="count" id="count"></div>
+
+        <div class="list" id="list"></div>
+
+    </div>
+
+    <script>
+
+        let data = JSON.parse(localStorage.getItem("partyList") || "[]")
+
+        function accept () {
+
+            let name = document.getElementById("name").value.trim()
+
+            if (!name) {
+                alert("请输入名字 🍻")
+                return
+            }
+
+            if (data.includes(name)) {
+                alert("你已经在名单里啦 😎")
+                return
+            }
+
+            data.push(name)
+
+            localStorage.setItem("partyList", JSON.stringify(data))
+
+            alert("欢迎加入今晚的狂欢 🍻")
+
+            render()
+
+        }
+
+        function render () {
+
+            document.getElementById("count").innerText =
+                "🍻 当前已接受人数：" + data.length + "人"
+
+            document.getElementById("list").innerHTML =
+                data.map(n => "<div>🎉 " + n + " 已加入</div>").join("")
+
+        }
+
+        render()
+
+    </script>
+
+</body>
+
+</html>
